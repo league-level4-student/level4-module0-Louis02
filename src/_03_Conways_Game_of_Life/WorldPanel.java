@@ -31,7 +31,7 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		// 2. Calculate the cell size.
 		cellSize = cpr / ConwaysGameOfLife.WIDTH;
 		// 3. Initialize the cell array to the appropriate size.
-		c = new Cell[cellSize][];
+		c = new Cell[cellsPerRow][cellsPerRow];
 		// 3. Iterate through the array and initialize each cell.
 		// Don't forget to consider the cell's dimensions when
 		// passing in the location.
@@ -118,7 +118,7 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		// 8. check if each cell should live or die
 		for (int i = 0; i < c.length; i++) {
 			for (int j = 0; j < c[i].length; j++) {
-				c[i][j].liveOrDie(getLivingNeighbors(i,j));
+				c[i][j].liveOrDie(getLivingNeighbors(i, j));
 			}
 		}
 		repaint();
@@ -130,7 +130,46 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 	// cell identified by x and y
 	public int getLivingNeighbors(int x, int y) {
 		int ans = 0;
-		
+		if (x - 1 <= 0) {
+
+		}
+		if (x + 1 >= ConwaysGameOfLife.WIDTH) {
+
+		}
+		if (y - 1 <= 0) {
+
+		}
+		if (y + 1 >= ConwaysGameOfLife.HEIGHT) {
+			
+		}
+			
+			
+
+		if (c[x - 1][y - 1].isAlive == true) {
+			ans++;
+		}
+		if (c[x][y - 1].isAlive == true) {
+			ans++;
+		}
+		if (c[x + 1][y - 1].isAlive == true) {
+			ans++;
+		}
+		if (c[x - 1][y].isAlive == true) {
+			ans++;
+		}
+		if (c[x + 1][y].isAlive == true) {
+			ans++;
+		}
+		if (c[x - 1][y + 1].isAlive == true) {
+			ans++;
+		}
+		if (c[x + 1][y + 1].isAlive == true) {
+			ans++;
+		}
+		if (c[x + 1][y + 1].isAlive == true) {
+			ans++;
+		}
+
 		return ans;
 	}
 
