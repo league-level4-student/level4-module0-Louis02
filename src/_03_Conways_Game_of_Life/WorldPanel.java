@@ -40,6 +40,7 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 				c[i][j] = new Cell(i, j, cellSize);
 			}
 		}
+		System.out.println(cellSize);
 	}
 
 	public void randomizeCells() {
@@ -85,7 +86,7 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 			for (int j = 0; j < c[i].length; j++) {
 				if (c[i][j].isAlive == false) {
 					g.setColor(Color.black);
-					g.drawRect(c[i][j].getX(), c[i][j].getY(), ConwaysGameOfLife.WIDTH, ConwaysGameOfLife.HEIGHT);
+					g.drawRect(c[i][j].getX(), c[i][j].getY(), cellSize, cellSize);
 				}
 
 			}
@@ -94,7 +95,7 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		g.setColor(Color.BLACK);
 		g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
 	}
-
+	
 	// advances world one step
 	public void step() {
 		// 7. iterate through cells and fill in the livingNeighbors array
@@ -104,15 +105,7 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 			for (int j = 0; j < c[i].length; j++) {
 
 				livingNeighbors[i][j] = getLivingNeighbors(i, j);
-				if (getLivingNeighbors(i, j) < 2) {
-					c[i][j].isAlive = false;
-				} else if (getLivingNeighbors(i, j) == 2 || getLivingNeighbors(i, j) == 3) {
-					c[i][j].isAlive = true;
-				} else if (getLivingNeighbors(i, j) > 3) {
-					c[i][j].isAlive = false;
-				} else if (c[i][j].isAlive == false && getLivingNeighbors(i, j) == 3) {
-					c[i][j].isAlive = true;
-				}
+			
 			}
 		}
 		// 8. check if each cell should live or die
@@ -140,7 +133,6 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 			}
 		}
 
-
 		return ans;
 	}
 
@@ -166,7 +158,31 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		// 10. Use e.getX() and e.getY() to determine
 		// which cell is clicked. Then toggle
 		// the isAlive variable for that cell.
-		if(e.getX()==c)
+		boolean cState = false;
+		for (int i = 0; i < c.length; i++) {
+			for (int j = 0; j < c[i].length; j++) {
+				if (e.getX() == c[i][j].getX()) {
+					if (c[i][j].isAlive == true) {
+					cState = false;						
+					}
+					else if(c[i][j].isAlive==false) {
+						cState = true;
+					}
+				}
+				if (e.getY() == c[i][j].getY()) {
+					if (c[i][j].isAlive == true) {
+					cState = false;						
+					}
+					else if(c[i][j].isAlive==false) {
+						cState = true;
+					}
+				}
+				c[i][j].isAlive = cState;
+
+			}
+		}
+		
+
 		repaint();
 	}
 
