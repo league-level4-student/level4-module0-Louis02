@@ -130,45 +130,16 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 	// cell identified by x and y
 	public int getLivingNeighbors(int x, int y) {
 		int ans = 0;
-		if (x - 1 <= 0) {
+		for (int i = x - 1; i <= x + 1; i++) {
+			for (int j = y - 1; j <= y + 1; j++) {
+				if (i >= 0 && j >= 0 && i > cellsPerRow && j > cellsPerRow) {
+					if (c[i][j].isAlive == true && i != (x) && j != (y)) {
+						ans++;
+					}
+				}
+			}
+		}
 
-		}
-		if (x + 1 >= ConwaysGameOfLife.WIDTH) {
-
-		}
-		if (y - 1 <= 0) {
-
-		}
-		if (y + 1 >= ConwaysGameOfLife.HEIGHT) {
-			
-		}
-			
-			
-
-		if (c[x - 1][y - 1].isAlive == true) {
-			ans++;
-		}
-		if (c[x][y - 1].isAlive == true) {
-			ans++;
-		}
-		if (c[x + 1][y - 1].isAlive == true) {
-			ans++;
-		}
-		if (c[x - 1][y].isAlive == true) {
-			ans++;
-		}
-		if (c[x + 1][y].isAlive == true) {
-			ans++;
-		}
-		if (c[x - 1][y + 1].isAlive == true) {
-			ans++;
-		}
-		if (c[x + 1][y + 1].isAlive == true) {
-			ans++;
-		}
-		if (c[x + 1][y + 1].isAlive == true) {
-			ans++;
-		}
 
 		return ans;
 	}
@@ -195,7 +166,7 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		// 10. Use e.getX() and e.getY() to determine
 		// which cell is clicked. Then toggle
 		// the isAlive variable for that cell.
-
+		if(e.getX()==c)
 		repaint();
 	}
 
