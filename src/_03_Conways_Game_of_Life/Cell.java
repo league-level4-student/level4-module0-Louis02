@@ -11,7 +11,7 @@ public class Cell implements Drawable {
 
 	private int cellSize;
 
-	WorldPanel wp = new WorldPanel(ConwaysGameOfLife.WIDTH, ConwaysGameOfLife.HEIGHT, cellSize);
+	
 
 	public Cell(int x, int y, int size) {
 		this.x = x;
@@ -30,19 +30,19 @@ public class Cell implements Drawable {
 	 * neighbors becomes a live cell, as if by reproduction. (source: Wikipedia)
 	 */
 	public void liveOrDie(int numNeighbors) {
-		if (isAlive = true) {
-			if (wp.getLivingNeighbors(x, y) < 2) {
+		if (isAlive == true) {
+			if (numNeighbors < 2) {
 				isAlive = false;
 			}
-			if (wp.getLivingNeighbors(x, y) == 2 || wp.getLivingNeighbors(x, y) == 3) {
+			if (numNeighbors < 2 || numNeighbors == 3) {
 				isAlive = true;
 			}
-			if (wp.getLivingNeighbors(x, y) > 3) {
+			if (numNeighbors > 3) {
 				isAlive = false;
 			}
 		}
-		if (isAlive = false) {
-			if(wp.getLivingNeighbors(x, y)==3) {
+		if (isAlive == false) {
+			if(numNeighbors==3) {
 				isAlive = true;
 			}
 		}
@@ -61,6 +61,16 @@ public class Cell implements Drawable {
 	// draws empty square if cell is dead
 	@Override
 	public void draw(Graphics g) {
-
+		if(isAlive == true) {
+			g.setColor(Color.BLUE);
+			g.fillRect(getX()*cellSize, getY()*cellSize, cellSize, cellSize);
+		}
+		else {
+			g.setColor(Color.white);
+			g.fillRect(getX()*cellSize, getY()*cellSize, cellSize, cellSize);
+		}
+		g.setColor(Color.black);
+		g.drawRect(getX()*cellSize, getY()*cellSize, cellSize, cellSize);
+		
 	}
 }
