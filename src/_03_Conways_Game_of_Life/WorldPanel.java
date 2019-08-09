@@ -40,7 +40,7 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 				c[i][j] = new Cell(i, j, cellSize);
 			}
 		}
-		System.out.println(cellSize);
+
 	}
 
 	public void randomizeCells() {
@@ -111,6 +111,7 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 				c[i][j].liveOrDie(livingNeighbors[i][j]);
 			}
 		}
+
 		repaint();
 	}
 
@@ -122,19 +123,23 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		int ans = 0;
 		for (int i = x - 1; i < x + 2; i++) {
 			for (int j = y - 1; j < y + 2; j++) {
-				if (i >= 0 && i < cellsPerRow - 1) {
-				
-				}
-				if (j >= 0 && j < cellsPerRow - 1) {
-					
-				}
-				if (c[i][j].isAlive == true && i != (x) && j != (y)) {
-					ans++;
-				
+
+				if (i == x && j == y) {
+
+				} else {
+
+					if (i < 0 || i > cellsPerRow - 1 || j < 0 || j > cellsPerRow - 1) {
+						continue;
+					}
+
+					else {
+						if (c[i][j].isAlive == true) {
+							ans++;
+						}
+					}
 				}
 			}
 		}
-
 		return ans;
 
 	}
@@ -162,26 +167,10 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		// which cell is clicked. Then toggle
 		// the isAlive variable for that cell.
 		boolean cState = false;
-		for (int i = 0; i < c.length; i++) {
-			for (int j = 0; j < c[i].length; j++) {
-				if (e.getX() == c[i][j].getX()) {
-					if (c[i][j].isAlive == true) {
-						cState = false;
-					} else if (c[i][j].isAlive == false) {
-						cState = true;
-					}
-				}
-				if (e.getY() == c[i][j].getY()) {
-					if (c[i][j].isAlive == true) {
-						cState = false;
-					} else if (c[i][j].isAlive == false) {
-						cState = true;
-					}
-				}
-				c[i][j].isAlive = cState;
 
-			}
-		}
+		int cx = e.getX() / cellSize;
+		int cy = e.getY() / cellSize;
+		c[cx][cy].isAlive = !c[cx][cy].isAlive;
 
 		repaint();
 	}
